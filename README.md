@@ -1,6 +1,6 @@
 # Piktiv Workshop T1 - part 2
 
-TodoApp is a simple application that stores your own personal TODO list, using Postgres and Redis for storage.
+TodoApp is a simple dotnet 8 application that stores your own personal TODO list, using Postgres and Redis for storage.
 
 The TodoApp presents a web interface at port 8080 (so if you were running the application outside of docker, you could just browse `http://localhost:8080`)
 
