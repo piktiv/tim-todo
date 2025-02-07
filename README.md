@@ -23,4 +23,4 @@ dotnet publish -o {PathToOutput} \
 Replace {PathToOutput} with wherever you want to build to and then run your application from that folder
 
 ## Docker hints
-If you want to inspect the contents of an image, you can start is as a container in interactive mode: `docker run -it {image-name} sh`
+If you want to inspect the contents of an image, you can start is as a container in interactive mode: `docker run -it {image-name} sh`. Use normal bash-commands to move around, like `ls`, `cd`, `pwd` 
