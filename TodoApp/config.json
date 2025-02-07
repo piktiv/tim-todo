@@ -1,5 +1,0 @@
-{
-	"ConnectionStrings": {
-		"TodoDb": "Host=127.0.0.1;Database=todo;Username=postgres;Password=dev"
-	}
-}

@@ -1,19 +1,43 @@
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 
-var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.AddJsonFile("./config.json");
-builder.Services.AddDbContextPool<TodoContext>(opt => 
-	opt.UseNpgsql(builder.Configuration.GetConnectionString("TodoDb")));
-
 var redisUrl = Environment.GetEnvironmentVariable("REDIS_URL");
+var databaseHost = Environment.GetEnvironmentVariable("DATABASE_HOST");
+var databaseUsername = Environment.GetEnvironmentVariable("DATABASE_USER");
+var databasePassword = Environment.GetEnvironmentVariable("DATABASE_PASSWORD");
+
+List<string> errors = [];
 
 if (redisUrl == null)
 {
-	throw new Exception("REDIS_URL is not set");
+	errors.Add("REDIS_URL is not set");
 }
 
-ConnectionMultiplexer redis = await ConnectionMultiplexer.ConnectAsync(redisUrl);
+if (databaseHost == null)
+{
+	errors.Add("DATABASE_HOST is not set");
+}
+
+if (databaseUsername == null)
+{
+	errors.Add("DATABASE_USER is not set");
+}
+
+if (databasePassword == null)
+{
+	errors.Add("DATABASE_PASSWORD is not set");
+}
+
+if (errors.Count > 0)
+{
+	throw new Exception($"Missing environment variables {string.Join(", ", errors)}");
+}
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContextPool<TodoContext>(opt => 
+	opt.UseNpgsql($"Host={databaseHost};Database=todo;Username={databaseUsername};Password={databasePassword}"));
+
+ConnectionMultiplexer redis = await ConnectionMultiplexer.ConnectAsync(redisUrl!);
 
 var app = builder.Build();
 
