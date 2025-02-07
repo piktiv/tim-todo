@@ -2,14 +2,19 @@
 
 TodoApp is a simple application that stores your own personal TODO list, using Postgres and Redis for storage.
 
-Your mission to create a docker compose that sets up a working environment of these three applications. \
-The data in redis and postgresql should also survive a restart of their container, so any todos created should still be alive after a restart.
+Your mission is to:
+- Package the application as a docker image
+- Create a docker compose that sets up the application together with a Redis-cache and Postgres-database.
+- Extra credit: The data in redis and postgresql should also survive a restart of their container, so any todos created should still be alive after a restart.
 
-TodoApp requires the following environment variables: \
-REDIS_URL - The URL to Redis (eg. redis or whatever you specify in the docker file) \
-DATABASE_HOST - The URL to Postgres (eg. postgres or whatever you specify in the docker file) \
+The application can be configured with the following environment variables \
+REDIS_URL - The URL to the Redis instance to use \
+DATABASE_HOST - The URL to the Postgres-system to use \
 DATABASE_USER - The Postgres user (Postgres has a default user called postgres that you can use) \
 DATABASE_PASSWORD - Whatever password you specified when setting up the postgres docker config 
+
+- The TodoApp exposes port 8080, and the endpoint GET `/` (so if you were running the application outside of docker, you could browse `http://localhost:8080` in Microsoft Edge)
+- The TodoApp will automatically create the database and tables if needed, so long as it is connected to a postgres system.
 
 ## C# hints
 A C# application can be built by using: \
